@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542296856370",
+    "project_id": "localink-e0381",
+    "storage_bucket": "localink-e0381.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542296856370:android:6da3b23b14be1be499292b",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo3hJEmDLNQ7hF7rG6r6hE9NbA-OcK1Js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
