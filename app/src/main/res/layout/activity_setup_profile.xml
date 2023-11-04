@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SetupProfileActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="Setup Profile"
+        android:textColor="#FF6200EE"
+        android:textSize="48sp" />
+
+    <ImageView
+        android:id="@+id/setupImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/profile"
+        app:srcCompat="@drawable/profile"
+        tools:srcCompat="@drawable/profile" />
+
+    <EditText
+        android:id="@+id/setupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/textinput"
+        android:ems="10"
+        android:hint="Enter Name..."
+        android:inputType="text"
+        android:padding="20dp" />
+
+    <EditText
+        android:id="@+id/setupUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/textinput"
+        android:ems="10"
+        android:hint="Enter Username..."
+        android:inputType="text"
+        android:padding="20dp" />
+
+    <Button
+        android:id="@+id/setupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="600dp"
+        android:layout_marginRight="20dp"
+        android:text="Setup"
+        android:background="@drawable/button"/>
+
+</RelativeLayout>
