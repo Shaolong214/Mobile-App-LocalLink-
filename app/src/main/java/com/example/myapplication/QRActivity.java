@@ -4,6 +4,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +35,7 @@ public class QRActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+
         qrCode = findViewById(R.id.qrCode);
         scanButton = findViewById(R.id.scanButton);
 
@@ -58,9 +61,22 @@ public class QRActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(QRActivity.this);
             builder.setTitle("Result");
             builder.setMessage(result.getContents());
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    SendToAddFriend();
+                }
+            }).show();
 
         }
     });
+
+    private void SendToAddFriend() {
+        Intent addFriendIntent = new Intent(QRActivity.this, AddFriendActivity.class);
+        startActivity(addFriendIntent);
+        finish();
+    }
 
     @Override
     protected void onStart() {

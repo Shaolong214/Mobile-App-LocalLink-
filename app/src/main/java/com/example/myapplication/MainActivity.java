@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference imageRef;
 
-    private Button LogoutButton;
+    private Button LogoutButton, AddFriendButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,44 +49,20 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         LogoutButton = (Button) findViewById(R.id.logoutButton);
-
-        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-        Sensor sensorShake = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        SensorEventListener sensorEventListener = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent sensorEvent) {
-                if (sensorEvent!=null){
-                    float x_acc = sensorEvent.values[0];
-                    float y_acc = sensorEvent.values[1];
-                    float z_acc = sensorEvent.values[2];
-
-                    if(x_acc > 2 ||
-                            x_acc < -2 ||
-                            y_acc > 12 ||
-                            y_acc < -12 ||
-                            z_acc > 2 ||
-                            z_acc < -2
-                    ){
-                        SendUserToQR();
-                    }
-                }
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int i) {
-
-            }
-        };
-
-        sensorManager.registerListener(sensorEventListener, sensorShake, SensorManager.SENSOR_DELAY_NORMAL);
+        AddFriendButton = (Button) findViewById(R.id.addFriendButton);
 
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
                 SendUserToLogin();
+            }
+        });
+
+        AddFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendUserToAddFriend();
             }
         });
 
@@ -100,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
+
 
     @Override
     protected void onStart() {
@@ -156,9 +133,11 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void SendUserToQR() {
-        Intent qrIntent = new Intent(MainActivity.this, QRActivity.class);
-        startActivity(qrIntent);
+    private void SendUserToAddFriend() {
+        Intent addFriendIntent = new Intent(MainActivity.this, AddFriendActivity.class);
+        addFriendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(addFriendIntent);
         finish();
     }
+
 }
