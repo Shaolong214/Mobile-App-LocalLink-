@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,15 +19,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
     private FirebaseAuth auth;
-private FirebaseFirestore db;
-    private DocumentReference docRef;
+    private FirebaseFirestore db;
+    private DocumentReference imageRef;
 
     private Button LogoutButton;
 
@@ -71,7 +71,27 @@ private FirebaseFirestore db;
 
         if(currentUser == null){
             SendUserToLogin();
+        } else {
+            AuthenticateUserExists();
         }
+    }
+
+
+
+    private void AuthenticateUserExists() {
+        final String userId = auth.getCurrentUser().getUid();
+        imageRef = db.collection("images").document(userId);
+        imageRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        @Override
+        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+            if(value!=null){
+                if(value.getData()==null) {
+                    SendUserToSetupProfileActivity();
+                }
+            }
+        }
+    });
+
     }
 
     private void SendUserToSetupProfileActivity() {
