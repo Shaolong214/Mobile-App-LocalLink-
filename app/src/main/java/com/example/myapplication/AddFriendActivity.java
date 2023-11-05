@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -47,6 +49,21 @@ public class AddFriendActivity extends AppCompatActivity {
         };
 
         sensorManager.registerListener(sensorEventListener, sensorShake, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddFriendActivity.this);
+        builder.setTitle("Add A Friend");
+        builder.setMessage("Shake your phone to display a QR Code to add friends!");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).show();
     }
 
     private void SendUserToQR() {

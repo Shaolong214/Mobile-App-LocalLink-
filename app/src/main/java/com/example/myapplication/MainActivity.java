@@ -87,16 +87,6 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser == null){
             SendUserToLogin();
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Add A Friend");
-            builder.setMessage("Shake your phone to display a QR Code to add friends!");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            }).show();
-
             AuthenticateUserExists();
         }
     }
