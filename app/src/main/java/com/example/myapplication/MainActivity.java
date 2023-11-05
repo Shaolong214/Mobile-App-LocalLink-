@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private DocumentReference imageRef;
 
     private Button LogoutButton;
+    private Button ProfileButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +44,20 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         LogoutButton = (Button) findViewById(R.id.logoutButton);
+        ProfileButton = (Button) findViewById(R.id.profileButton);
 
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
                 SendUserToLogin();
+            }
+        });
+
+        ProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendUserToProfileActivity();
             }
         });
 
@@ -107,4 +116,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(loginIntent);
         finish();
     }
+
+    private void SendUserToProfileActivity() {
+        Intent ProfileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(ProfileIntent);
+        finish();
+    }
+
+
 }
