@@ -86,18 +86,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void AuthenticateUserExists() {
         final String userId = auth.getCurrentUser().getUid();
         imageRef = db.collection("images").document(userId);
         imageRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
         @Override
         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-            if(value!=null){
-                if(value.getData()==null) {
-                    SendUserToSetupProfileActivity();
-                }
-            }
+//            if(value!=null){
+//                if(value.getData()==null) {
+//                    SendUserToSetupProfileActivity();
+//                }
+//            }
         }
     });
 
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToProfileActivity() {
         Intent ProfileIntent = new Intent(MainActivity.this, ProfileActivity.class);
         startActivity(ProfileIntent);
-        finish();
+//        finish();
     }
 
 
