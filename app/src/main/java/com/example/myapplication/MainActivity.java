@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
         imageRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
         @Override
         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//            if(value!=null){
-//                if(value.getData()==null) {
-//                    SendUserToSetupProfileActivity();
-//                }
-//            }
+            if(value!=null){
+                if(value.getData()==null) {
+                    SendUserToSetupProfileActivity();
+                }
+            }
         }
     });
 
