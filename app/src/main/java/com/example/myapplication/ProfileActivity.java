@@ -68,10 +68,7 @@
 //}
 
 
-//// match userName and name to fire database
-//// implement the back function
-//// implement the edit function
-//// implement the profile image function
+/* above v1, below v2 */
 
 
 //package com.example.myapplication;
@@ -142,6 +139,8 @@
 //    }
 //}
 
+/* above v2, below v3 */
+
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
@@ -149,6 +148,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -171,6 +171,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String currentUserId;
     private Button btnBackToHome;
+    private Button EditButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,6 +195,14 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
             startActivity(intent);
         });
+
+        EditButton = findViewById(R.id.edit_profile);
+        EditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendUserToEditProfileActivity();
+            }
+        });
     }
 
     private void retrieveAndDisplayUserDetails() {
@@ -214,8 +223,8 @@ public class ProfileActivity extends AppCompatActivity {
                             String myName = documentSnapshot.getString("name");
                             String myProfileStatus = documentSnapshot.getString("status");
 
-                            userName.setText("@" + myUserName);
-                            userConstantName.setText(myName);
+                            userName.setText(myUserName);
+                            userConstantName.setText("@" + myName);
                             userStatus.setText(myProfileStatus);
                         }
                     }
@@ -242,4 +251,12 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void SendUserToEditProfileActivity() {
+        Intent ProfileIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+        startActivity(ProfileIntent);
+    }
 }
+
+// implement status
+// implement edit
