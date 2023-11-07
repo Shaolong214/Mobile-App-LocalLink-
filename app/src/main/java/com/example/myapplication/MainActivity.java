@@ -1,19 +1,13 @@
 package com.example.myapplication;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.hardware.Sensor;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -37,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference imageRef;
 
-    private Button LogoutButton, AddFriendButton;
+    private Button LogoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +43,12 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         LogoutButton = (Button) findViewById(R.id.logoutButton);
-        AddFriendButton = (Button) findViewById(R.id.addFriendButton);
 
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
                 SendUserToLogin();
-            }
-        });
-
-        AddFriendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SendUserToAddFriend();
             }
         });
 
@@ -76,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
-
 
     @Override
     protected void onStart() {
@@ -122,12 +107,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(loginIntent);
         finish();
     }
-
-    private void SendUserToAddFriend() {
-        Intent addFriendIntent = new Intent(MainActivity.this, AddFriendActivity.class);
-        addFriendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(addFriendIntent);
-        finish();
-    }
-
 }
