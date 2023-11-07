@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,7 +69,7 @@ public class MyFriendsActivity extends AppCompatActivity {
         initView();
         auth = FirebaseAuth.getInstance();
         curUserId = auth.getCurrentUser().getUid();
-        Log.e("curUserId: " ,curUserId);  // ZCk0HsH9DcTSGv3dN3iGS8ZRlvN2
+        Log.e("curUserId: " ,curUserId);
         initFirendList();
         initQRCode();
     }
@@ -122,14 +123,14 @@ public class MyFriendsActivity extends AppCompatActivity {
 
 
         btnViewFriendRequests.setOnClickListener(view -> {
-            // 实现查看好友请求的逻辑
+
             Intent intent = new Intent();
             intent.setClass(MyFriendsActivity.this, ReceivedReqFriendsActivity.class);
             startActivity(intent);
         });
 
         btnAddFriend.setOnClickListener(view -> {
-            // 实现添加好友的逻辑
+
             viewFlipper.setDisplayedChild(1);
 
         });
@@ -141,18 +142,18 @@ public class MyFriendsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editUserName = searchUserNameEdit.getText().toString();
                 if (TextUtils.isEmpty(editUserName)) {
-                    Toast.makeText(MyFriendsActivity.this,"please enter userName,And Search",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 List<UserBean> userBeans = MyApplication.allUserList;
                 if (userBeans == null) {
-                    Toast.makeText(MyFriendsActivity.this,"please register userName,And Search",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 toUserId = searchFriend(editUserName);
                 if (TextUtils.isEmpty(toUserId)) {
                     viewFlipper.setDisplayedChild(3);
-                    Toast.makeText(MyFriendsActivity.this,"please register userName,And Search",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 sendFriendName.setText(editUserName);
@@ -232,12 +233,12 @@ public class MyFriendsActivity extends AppCompatActivity {
             @Nullable
             @Override
             public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                // 更新发送请求用户的文档
+
                 transaction.update(fromUserRef, "friendRequestsSent", FieldValue.arrayUnion(toUserId));
-                // 更新接收请求用户的文档
+
                 transaction.update(toUserRef, "friendRequestsReceived", FieldValue.arrayUnion(fromUserId));
 
-               /* // 创建一个新的好友请求文档
+               /*
                 Map<String, Object> friendRequest = new HashMap<>();
                 friendRequest.put("fromUserId", fromUserId);
                 friendRequest.put("toUserId", toUserId);
@@ -266,11 +267,11 @@ public class MyFriendsActivity extends AppCompatActivity {
 
     private void createRequest(String fromUserId,String fromUserName,String toUserId,String toUserName) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // 检查是否已存在匹配的friend_request
+
         db.collection("friend_requests")
                 .whereEqualTo("fromUserId", fromUserId)
                 .whereEqualTo("toUserId", toUserId)
-                .limit(1) // 因为我们只关心是否至少存在一个
+                .limit(1)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -279,7 +280,7 @@ public class MyFriendsActivity extends AppCompatActivity {
                             Log.e("runTransaction:","begin 222");
                             List<DocumentSnapshot> documents = task.getResult().getDocuments();
                             if (documents.isEmpty()) {
-                                // 没有找到匹配的记录，创建一个新的
+
                                 Map<String, Object> friendRequest = new HashMap<>();
                                 friendRequest.put("fromUserId", fromUserId);
                                 friendRequest.put("fromUserName", fromUserName);
@@ -298,7 +299,7 @@ public class MyFriendsActivity extends AppCompatActivity {
                             }
                         } else {
                             Log.e("runTransaction:","begin 222--000");
-                            // 处理错误
+
                         }
                     }
                 });
@@ -347,8 +348,41 @@ public class MyFriendsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
-            if (resultCode == RESULT_CANCELED) {
-                detected = false;
+            detected = false;
+        }
+        if (resultCode == RESULT_OK){
+
+            if (data != null) {
+                String qruserId = data.getStringExtra("qr_result");
+
+                if (TextUtils.equals(qruserId,curUserId)) {
+                    /*Intent intent = new Intent();
+                    intent.setClass(MyFriendsActivity.this,ReceivedReqFriendsActivity.class);
+                    startActivity(intent);*/
+                    viewFlipper.setDisplayedChild(0);
+                    Toast.makeText(MyFriendsActivity.this,"please waiting for add friend",Toast.LENGTH_LONG).show();
+                } else {
+                    String qrUserName = null;
+                    List<UserBean> userBeans = MyApplication.allUserList;
+                    if (userBeans == null) {
+                        Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    for (UserBean userBean:MyApplication.allUserList) {
+                        if (userBean.getUserId().equals(qruserId)) {
+                            qrUserName = userBean.getUsername();
+                            break;
+                        }
+                    }
+
+                    if (TextUtils.isEmpty(qrUserName)) {
+                        Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    toUserId = qruserId;
+                    sendFriendName.setText(qrUserName);
+                    viewFlipper.setDisplayedChild(2);
+                }
             }
         }
     }
