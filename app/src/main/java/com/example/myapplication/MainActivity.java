@@ -1,13 +1,19 @@
 package com.example.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.hardware.Sensor;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -31,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference imageRef;
 
-    private Button LogoutButton;
+    private Button LogoutButton, AddFriendButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +49,20 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         LogoutButton = (Button) findViewById(R.id.logoutButton);
+        AddFriendButton = (Button) findViewById(R.id.addFriendButton);
 
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
                 SendUserToLogin();
+            }
+        });
+
+        AddFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendUserToAddFriend();
             }
         });
 
@@ -63,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -72,8 +87,19 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser == null){
             SendUserToLogin();
         } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Add A Friend");
+            builder.setMessage("Shake your phone to display a QR Code to add friends!");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).show();
             AuthenticateUserExists();
         }
+
+        MyApplication.initUserFireBase();
     }
 
 
@@ -84,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
         imageRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
         @Override
         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-            if(value!=null){
+            /*if(value!=null){
                 if(value.getData()==null) {
                     SendUserToSetupProfileActivity();
                 }
-            }
+            }*/
         }
     });
 
@@ -107,4 +133,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(loginIntent);
         finish();
     }
+
+    private void SendUserToAddFriend() {
+        if (true) {
+            Intent addFriendIntent = new Intent(MainActivity.this, MyFriendsActivity.class);
+            startActivity(addFriendIntent);
+            return;
+        }
+        Intent addFriendIntent = new Intent(MainActivity.this, AddFriendActivity.class);
+        addFriendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(addFriendIntent);
+        finish();
+    }
+
 }
