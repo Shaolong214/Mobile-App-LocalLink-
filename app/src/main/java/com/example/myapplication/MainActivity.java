@@ -209,9 +209,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             startActivity(addFriendIntent);
             return;
         }
-/*        Intent addFriendIntent = new Intent(MainActivity.this, AddFriendActivity.class);
+        Intent addFriendIntent = new Intent(MainActivity.this, AddFriendActivity.class);
         addFriendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(addFriendIntent);
-        finish();*/
+        finish();
     }
 }

@@ -70,32 +70,23 @@ public class QRActivity extends AppCompatActivity {
             System.out.println(result.getContents());
             AlertDialog.Builder builder = new AlertDialog.Builder(QRActivity.this);
             builder.setTitle("Result");
-            builder.setMessage("Successful Search");
+            builder.setMessage(result.getContents());
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
-                    // SendToAddFriend();
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("qr_result", result.getContents());
-
-                    setResult(RESULT_OK, resultIntent);
-
-                    finish();
-
+                    SendToAddFriend();
                 }
             }).show();
 
-        } else {
-           // Toast.makeText(this,"QRCode is error!",Toast.LENGTH_SHORT).show();
         }
     });
 
-/*    private void SendToAddFriend() {
+    private void SendToAddFriend() {
         Intent addFriendIntent = new Intent(QRActivity.this, AddFriendActivity.class);
         startActivity(addFriendIntent);
         finish();
-    }*/
+    }
 
     @Override
     protected void onStart() {
