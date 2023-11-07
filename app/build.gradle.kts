@@ -62,8 +62,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
 
     implementation("com.squareup.picasso:picasso:2.8")
-
-    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 }
 // added to resolve the duplicate classes issue
 configurations.all {

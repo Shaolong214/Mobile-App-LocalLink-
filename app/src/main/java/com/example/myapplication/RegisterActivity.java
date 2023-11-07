@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -35,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         RegisterEmail = (EditText) findViewById(R.id.registerEmail);
         RegisterPassword = (EditText) findViewById(R.id.registerPassword);
-        RegisterButton = (Button) findViewById(R.id.scanButton);
+        RegisterButton = (Button) findViewById(R.id.registerButton);
         loadingBar = new ProgressBar(this);
 
         RegisterButton.setOnClickListener(new View.OnClickListener() {
