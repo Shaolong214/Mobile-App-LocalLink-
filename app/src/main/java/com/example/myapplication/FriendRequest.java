@@ -12,11 +12,11 @@ public class FriendRequest {
     private String status;
     private Date timestamp;
 
-    // Firestore在内部使用空构造函数来进行反序列化
+
     public FriendRequest() {
     }
 
-    // 构造函数，所有参数的getter和setter方法
+
     public FriendRequest(String fromUserId, String fromUserName, String toUserId, String toUserName,String status, Date timestamp) {
         this.fromUserId = fromUserId;
         this.fromUserName = fromUserName;
