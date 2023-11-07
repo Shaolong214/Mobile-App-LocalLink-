@@ -50,8 +50,8 @@ public class AddFriendActivity extends AppCompatActivity {
     }
 
     private void SendUserToQR() {
-        Intent qrIntent = new Intent(AddFriendActivity.this, QRActivity.class);
+      /*  Intent qrIntent = new Intent(AddFriendActivity.this, QRActivity.class);
         startActivity(qrIntent);
-        finish();
+        finish();*/
     }
 }

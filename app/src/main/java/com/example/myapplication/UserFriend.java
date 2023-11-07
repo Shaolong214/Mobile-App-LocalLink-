@@ -11,10 +11,10 @@ public class UserFriend {
     private String username;
 
 
-    // 无参数构造函数是必须的
+
     public UserFriend() {}
 
-    // 这里是所有属性的getter和setter方法
+
     public String getAvatar() {
         return avatar;
     }
@@ -63,7 +63,7 @@ public class UserFriend {
         this.username = username;
     }
 
-    // 如果需要，您可以添加toString()方法，它将有助于调试
+
     @Override
     public String toString() {
         return "UserFriend{" +
