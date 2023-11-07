@@ -7,12 +7,6 @@
     android:layout_height="match_parent"
     android:paddingTop="?attr/actionBarSize">
 
-    <fragment
-        android:id="@+id/google_map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
