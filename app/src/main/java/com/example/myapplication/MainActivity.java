@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.Manifest;
+import android.hardware.Sensor;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseFirestore db;
     private DocumentReference imageRef;
 
-    private Button LogoutButton;
+    private Button LogoutButton, AddFriendButton;
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient fusedLocationProviderClient;
     private final int FINE_PERMISSION_CODE = 1;
@@ -57,9 +59,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  //      setContentView(R.layout.activity_main);
-       binding = ActivityMainBinding.inflate(getLayoutInflater());
-       setContentView(binding.getRoot());
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -120,10 +122,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 ////            AuthenticateUserExists();
 ////        }
 //    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        if(currentUser == null){
+            SendUserToLogin();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Add A Friend");
+            builder.setMessage("Shake your phone to display a QR Code to add friends!");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).show();
+            AuthenticateUserExists();
+        }
+
+        MyApplication.initUserFireBase();
+    }
+
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-
-
         myMap = googleMap;
 
         //LatLng sydney = new LatLng(-34, 151);
@@ -145,17 +170,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+
+
     private void AuthenticateUserExists() {
         final String userId = auth.getCurrentUser().getUid();
         imageRef = db.collection("images").document(userId);
         imageRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
         @Override
         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-            if(value!=null){
+            /*if(value!=null){
                 if(value.getData()==null) {
                     SendUserToSetupProfileActivity();
                 }
-            }
+            }*/
         }
     });
 
@@ -174,6 +201,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(loginIntent);
         finish();
     }
+
+    private void SendUserToAddFriend() {
+        if (true) {
+            Intent addFriendIntent = new Intent(MainActivity.this, MyFriendsActivity.class);
+            startActivity(addFriendIntent);
+            return;
+        }
+        Intent addFriendIntent = new Intent(MainActivity.this, AddFriendActivity.class);
+        addFriendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(addFriendIntent);
+        finish();
+    }
+
 
 
 }

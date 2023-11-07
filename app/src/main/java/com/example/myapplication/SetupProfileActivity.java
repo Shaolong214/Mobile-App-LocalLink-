@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,7 +30,9 @@ import com.squareup.picasso.Picasso;
 
 import androidx.activity.result.ActivityResultLauncher;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SetupProfileActivity extends AppCompatActivity {
 
@@ -135,6 +138,7 @@ public class SetupProfileActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
+                        createUserInFirestore(username);
                         SendUserToMainActivity();
                     }
                 }
@@ -147,5 +151,19 @@ public class SetupProfileActivity extends AppCompatActivity {
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setupIntent);
         finish();
+    }
+
+    public void createUserInFirestore(String userName) {
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        Map<String, Object> user = new HashMap<>();
+        user.put("username", userName);
+        user.put("email", firebaseUser.getEmail());
+        user.put("avatar", "");
+        user.put("friends", new ArrayList<String>());
+        user.put("friendRequestsSent", new ArrayList<String>());
+        user.put("friendRequestsReceived", new ArrayList<String>());
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("usersFriends").document(firebaseUser.getUid()).set(user);
     }
 }
