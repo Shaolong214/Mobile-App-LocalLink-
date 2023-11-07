@@ -35,7 +35,7 @@ public class MyApplication extends Application {
                             allUserList = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 UserBean user = document.toObject(UserBean.class);
-                                user.setId(document.getId()); // 设置文档的ID
+                                user.setId(document.getId());
                                 allUserList.add(user);
                             }
                         } else {
