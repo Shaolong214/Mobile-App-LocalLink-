@@ -34,11 +34,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SetupProfileActivity extends AppCompatActivity {
 
     private EditText SetupName, SetupUsername;
     private Button SetupButton;
-    private ImageView SetupImage;
+    private CircleImageView SetupImage;
 
     private FirebaseAuth auth;
     private FirebaseFirestore db;
@@ -61,7 +63,7 @@ public class SetupProfileActivity extends AppCompatActivity {
         SetupName = (EditText) findViewById(R.id.setupName);
         SetupUsername = (EditText) findViewById(R.id.setupUsername);
         SetupButton = (Button) findViewById(R.id.setupButton);
-        SetupImage = (ImageView) findViewById(R.id.setupImage);
+        SetupImage = (CircleImageView) findViewById(R.id.setupImage);
 
         SetupButton.setOnClickListener(new View.OnClickListener() {
             @Override

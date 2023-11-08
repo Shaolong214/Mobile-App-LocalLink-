@@ -38,15 +38,13 @@
 
         </RelativeLayout>
 
-
-
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="20dp"
-        android:id="@+id/profileImage"
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:src="@drawable/profile" />
+
 </LinearLayout>

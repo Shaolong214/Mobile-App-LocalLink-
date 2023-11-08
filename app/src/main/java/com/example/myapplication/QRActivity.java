@@ -39,7 +39,7 @@ public class QRActivity extends AppCompatActivity {
 
 
         qrCode = findViewById(R.id.qrCode);
-        title = findViewById(R.id.textView2);
+        title = findViewById(R.id.qrTitle);
         scanButton = findViewById(R.id.scanButton);
 
         scanButton.setOnClickListener(new View.OnClickListener() {

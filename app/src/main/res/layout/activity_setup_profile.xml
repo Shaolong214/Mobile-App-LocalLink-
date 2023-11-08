@@ -16,18 +16,14 @@
         android:textColor="#FF6200EE"
         android:textSize="48sp" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/setupImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="155dp"
-        android:src="@drawable/profile"
-        app:srcCompat="@drawable/profile"
-        tools:srcCompat="@drawable/profile" />
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="100dp"
+        android:src="@drawable/profile" />
 
     <EditText
         android:id="@+id/setupName"
