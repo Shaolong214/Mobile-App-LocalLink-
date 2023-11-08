@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // map
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
         getLastLocation();
 
     }
