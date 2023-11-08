@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -17,6 +18,7 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -142,18 +144,18 @@ public class MyFriendsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editUserName = searchUserNameEdit.getText().toString();
                 if (TextUtils.isEmpty(editUserName)) {
-                    Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyFriendsActivity.this,"Error. Please check and try again",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 List<UserBean> userBeans = MyApplication.allUserList;
                 if (userBeans == null) {
-                    Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyFriendsActivity.this,"Error. Please check and try again",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 toUserId = searchFriend(editUserName);
                 if (TextUtils.isEmpty(toUserId)) {
                     viewFlipper.setDisplayedChild(3);
-                    Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyFriendsActivity.this,"Error. Please check and try again",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 sendFriendName.setText(editUserName);
@@ -212,6 +214,13 @@ public class MyFriendsActivity extends AppCompatActivity {
                 viewFlipper.setDisplayedChild(1);
             }
         });
+
+        findViewById(R.id.btnTry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewFlipper.setDisplayedChild(1);
+            }
+        });
     }
 
     private String searchFriend(String userName){
@@ -253,12 +262,12 @@ public class MyFriendsActivity extends AppCompatActivity {
         }).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Log.e("runTransaction:","begin 333");
-                Toast.makeText(MyFriendsActivity.this,"Success to request add a Friend !",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyFriendsActivity.this,"Successfully sent friend request",Toast.LENGTH_SHORT).show();
                 viewFlipper.setDisplayedChild(0);
                 progressBar.setVisibility(View.GONE);
             } else {
                 Log.e("runTransaction:","begin 333---000");
-                Toast.makeText(MyFriendsActivity.this,"Fail to request add a Friend !",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyFriendsActivity.this,"Failed to send friend request",Toast.LENGTH_SHORT).show();
                 viewFlipper.setDisplayedChild(3);
                 progressBar.setVisibility(View.GONE);
             }
@@ -310,7 +319,15 @@ public class MyFriendsActivity extends AppCompatActivity {
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         Sensor sensorShake = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(MyFriendsActivity.this);
+        builder.setTitle("Add A Friend");
+        builder.setMessage("Select Add Friend and shake your phone to display a QR Code to add friends!");
+        builder.setPositiveButton("Cool!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).show();
         SensorEventListener sensorEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
@@ -360,12 +377,12 @@ public class MyFriendsActivity extends AppCompatActivity {
                     intent.setClass(MyFriendsActivity.this,ReceivedReqFriendsActivity.class);
                     startActivity(intent);*/
                     viewFlipper.setDisplayedChild(0);
-                    Toast.makeText(MyFriendsActivity.this,"please waiting for add friend",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MyFriendsActivity.this,"Waiting to add friend...",Toast.LENGTH_LONG).show();
                 } else {
                     String qrUserName = null;
                     List<UserBean> userBeans = MyApplication.allUserList;
                     if (userBeans == null) {
-                        Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyFriendsActivity.this,"Error. Please check and try again",Toast.LENGTH_SHORT).show();
                         return;
                     }
                     for (UserBean userBean:MyApplication.allUserList) {
@@ -376,7 +393,7 @@ public class MyFriendsActivity extends AppCompatActivity {
                     }
 
                     if (TextUtils.isEmpty(qrUserName)) {
-                        Toast.makeText(MyFriendsActivity.this,"Please check and try again",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyFriendsActivity.this,"Error. Please check and try again",Toast.LENGTH_SHORT).show();
                         return;
                     }
                     toUserId = qruserId;

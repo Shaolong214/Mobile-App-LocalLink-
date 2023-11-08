@@ -10,15 +10,16 @@
     tools:context=".QRActivity">
 
     <TextView
-        android:drawableLeft="@mipmap/back"
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:id="@+id/qrTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:text="Add A Friend"
-        android:textColor="#FF6200EE"
-        android:textSize="48sp" />
+        android:layout_marginBottom="50dp"
+        android:drawableLeft="@mipmap/back"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="  Scan A Friend"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView"
@@ -38,7 +39,7 @@
         android:id="@+id/scanButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="90dp"
         android:background="@drawable/button"
         android:text="Scan A Friend" />
 

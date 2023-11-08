@@ -21,12 +21,14 @@
         android:id="@+id/acceptImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_accept" />
+        android:src="@mipmap/ic_accept"
+        android:tint="@android:color/holo_green_dark" />
 
     <ImageView
-        android:layout_marginLeft="20dp"
         android:id="@+id/rejectImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_reject" />
+        android:layout_marginLeft="20dp"
+        android:src="@mipmap/ic_reject"
+        android:tint="@color/design_default_color_error" />
 </LinearLayout>

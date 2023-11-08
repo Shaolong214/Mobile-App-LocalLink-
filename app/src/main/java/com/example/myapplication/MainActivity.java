@@ -149,17 +149,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(currentUser == null){
             SendUserToLogin();
-        } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Add A Friend");
-            builder.setMessage("Shake your phone to display a QR Code to add friends!");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            }).show();
-            AuthenticateUserExists();
         }
 
         MyApplication.initUserFireBase();
@@ -187,30 +176,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(this, "Location permission is denied", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-
-    private void AuthenticateUserExists() {
-        final String userId = auth.getCurrentUser().getUid();
-        imageRef = db.collection("images").document(userId);
-        imageRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-        @Override
-        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-            /*if(value!=null){
-                if(value.getData()==null) {
-                    SendUserToSetupProfileActivity();
-                }
-            }*/
-        }
-    });
-
-    }
-
-    private void SendUserToSetupProfileActivity() {
-        Intent setupProfileIntent = new Intent(MainActivity.this, SetupProfileActivity.class);
-        setupProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(setupProfileIntent);
-        finish();
     }
 
     private void SendUserToLogin() {

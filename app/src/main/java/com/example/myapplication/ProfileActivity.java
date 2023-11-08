@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private String currentUserId;
-    private Button btnBackToHome;
+    private TextView btnBackToHome;
     private Button EditButton;
 
     @Override

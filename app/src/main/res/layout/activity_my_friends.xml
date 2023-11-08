@@ -53,7 +53,7 @@
                     android:text="View Friend Requests"
                     android:layout_marginBottom="10dp"
                     android:layout_above="@id/btnAddFriend"
-                    android:background="@color/purple_500"
+                    android:background="@drawable/button"
                     android:textColor="@android:color/white"/>
 
                 <Button
@@ -64,7 +64,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/purple_500"
+                    android:background="@drawable/button"
                     android:textColor="@android:color/white"/>
             </RelativeLayout>
 
@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvSearchNameTitle"
                     android:layout_centerHorizontal="true"
-                    android:text="Search User Name"
+                    android:text="Search by Username"
                     android:textSize="30sp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
@@ -103,7 +103,7 @@
                     android:padding="12dp"
                     android:hint="Name"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/edit_text_background"
+                    android:background="@drawable/textinput"
                     android:textColorHint="@android:color/darker_gray"
                     android:textSize="30sp"
                     android:textColor="@color/black"/>
@@ -116,7 +116,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/purple_500"
+                    android:background="@drawable/button"
                     android:textColor="@android:color/white"/>
             </RelativeLayout>
 
@@ -136,20 +136,20 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:textStyle="bold"/>
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_pic"
                     android:layout_below="@id/tvSearchNameTitleResult"
                     android:layout_width="120dp"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
                     android:layout_height="120dp"
-                    android:src="@drawable/profile"/>
+                    android:src="@drawable/profile" />
                 <TextView
                     android:id="@+id/tvSearchName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/user_pic"
-                    android:text="username"
+                    android:text="Username"
                     android:textSize="30sp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
@@ -162,20 +162,22 @@
                     android:padding="12dp"
                     android:hint="Name"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/edit_text_background"
+                    android:background="@drawable/textinput"
                     android:textColorHint="@android:color/darker_gray"
                     android:textSize="30sp"
+                    android:inputType="none"
+                    android:enabled="false"
                     android:textColor="@color/black"/>
 
                 <Button
                     android:id="@+id/btnSendFriend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Send Firend Request"
+                    android:text="Send Friend Request"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/purple_500"
+                    android:background="@drawable/button"
                     android:textColor="@android:color/white"/>
             </RelativeLayout>
 
@@ -204,7 +206,7 @@
                     android:id="@+id/tvSearchNameResultError"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Can't Find User"
+                    android:text="User not found"
                     android:textSize="30sp"
                     android:textColor="@android:color/holo_red_dark"
                     android:paddingTop="10dp"
@@ -220,7 +222,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/purple_500"
+                    android:background="@drawable/button"
                     android:textColor="@android:color/white"/>
             </RelativeLayout>
 

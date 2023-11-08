@@ -19,6 +19,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/btnBackToHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:drawableLeft="@mipmap/back"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="  Profile"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/my_profile_pic"
@@ -26,14 +37,14 @@
                 android:layout_height="300dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="50dp"
                 android:src="@drawable/profile"/>
 
             <TextView
                 android:id="@+id/my_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="UserName"
+                android:text="Username"
                 android:layout_below="@id/my_profile_pic"
                 android:layout_marginTop="30dp"
                 android:textAlignment="center"
@@ -66,20 +77,6 @@
                 android:textColor="@color/purple_200"
                 android:textSize="30dp"/>
 
-
-
-
-
-            <Button
-                android:id="@+id/btnBackToHome"
-                android:layout_width="72dp"
-                android:layout_height="36dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button"
-                android:text="Back"
-                android:textSize="13sp" />
-
             <Button
                 android:id="@+id/edit_profile"
                 android:layout_width="match_parent"
@@ -87,7 +84,7 @@
                 android:layout_below="@id/my_profile_status"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="150dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"

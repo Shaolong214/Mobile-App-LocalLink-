@@ -8,6 +8,7 @@
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
         android:text="Back" />
 
     <!-- RecyclerView for the friends list -->
@@ -36,12 +37,14 @@
             android:id="@+id/buttonAddFriend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button"
             android:text="Add a Friend" />
 
         <Button
             android:id="@+id/buttonViewRequests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button"
             android:text="View Friend Requests" />
     </LinearLayout>
 

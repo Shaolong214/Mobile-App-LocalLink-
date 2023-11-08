@@ -6,11 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-150dp"
+        app:srcCompat="@drawable/logo" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="170dp"
         android:gravity="center"
         android:text="Create Account"
         android:textColor="#FF6200EE"
@@ -21,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="250dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/textinput"
         android:ems="10"
@@ -34,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="350dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/textinput"
         android:ems="10"
@@ -47,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="450dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/button"
         android:text="Register" />
