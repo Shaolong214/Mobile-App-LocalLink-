@@ -2,21 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".MyApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
+
+            android:name=".AddFriendActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QRActivity"
+
             android:exported="false" />
         <activity
             android:name=".SetupProfileActivity"
@@ -28,6 +40,11 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".CaptureAct"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
@@ -37,6 +54,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MyFriendsActivity"
+            />
+        <activity android:name=".ReceivedReqFriendsActivity"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAiqvCd8wriBGwLz-QnG_VBtMa5wU1WHnk"
+            />
     </application>
 
 </manifest>

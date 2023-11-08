@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ViewFlipper
+            android:id="@+id/view_flipper"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:inAnimation="@anim/slide_in"
+            android:outAnimation="@anim/slide_out"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/view_flipper_main"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tvMyFriendsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  My Friends"
+                    android:drawableLeft="@mipmap/back"
+                    android:textSize="24sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lvFriendsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tvMyFriendsTitle"
+                    android:layout_above="@id/btnViewFriendRequests"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <Button
+                    android:id="@+id/btnViewFriendRequests"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="View Friend Requests"
+                    android:layout_marginBottom="10dp"
+                    android:layout_above="@id/btnAddFriend"
+                    android:background="@color/purple_500"
+                    android:textColor="@android:color/white"/>
+
+                <Button
+                    android:id="@+id/btnAddFriend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add a Friend"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/purple_500"
+                    android:textColor="@android:color/white"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_flipper_search_name"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:drawableLeft="@mipmap/back"
+                    android:id="@+id/tvSearchNameTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Add Friend"
+                    android:textSize="24sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tvSearchNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSearchNameTitle"
+                    android:layout_centerHorizontal="true"
+                    android:text="Search User Name"
+                    android:textSize="30sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:layout_below="@id/tvSearchNameText"
+                    android:id="@+id/tvSearchNameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:hint="Name"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_background"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"/>
+
+                <Button
+                    android:id="@+id/btnSearchFriend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Search"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/purple_500"
+                    android:textColor="@android:color/white"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_flipper_search_name_result"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:drawableLeft="@mipmap/back"
+                    android:id="@+id/tvSearchNameTitleResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Add Friend"
+                    android:textSize="24sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"/>
+                <ImageView
+                    android:id="@+id/user_pic"
+                    android:layout_below="@id/tvSearchNameTitleResult"
+                    android:layout_width="120dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="120dp"
+                    android:src="@drawable/profile"/>
+                <TextView
+                    android:id="@+id/tvSearchName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/user_pic"
+                    android:text="username"
+                    android:textSize="30sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:layout_below="@id/tvSearchName"
+                    android:id="@+id/tvSearchNameEditResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:hint="Name"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_background"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"/>
+
+                <Button
+                    android:id="@+id/btnSendFriend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Send Firend Request"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/purple_500"
+                    android:textColor="@android:color/white"/>
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/view_flipper_search_error"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:drawableLeft="@mipmap/back"
+                    android:id="@+id/tvSearchNameError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Error"
+                    android:textSize="24sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tvSearchNameResultError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Can't Find User"
+                    android:textSize="30sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"/>
+
+
+                <Button
+                    android:id="@+id/btnTry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Try Again"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/purple_500"
+                    android:textColor="@android:color/white"/>
+            </RelativeLayout>
+
+        </ViewFlipper>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>
