@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ViewFlipper
+            android:id="@+id/view_flipper"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:inAnimation="@anim/slide_in"
+            android:outAnimation="@anim/slide_out"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/view_flipper_main"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tvChatTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Chat"
+                    android:drawableLeft="@mipmap/back"
+                    android:textSize="24sp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lvMessageList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tvChatTitle"
+                    android:layout_above="@id/llSendMessage"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:id="@+id/llSendMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/etMessageInput"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/textinput"
+                        android:gravity="bottom|left"
+                        android:hint="Enter Message..."
+                        android:inputType="textEmailAddress"
+                        android:padding="20dp"/>
+
+                    <Button
+                        android:id="@+id/addAttachmentButton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/button"
+                        android:layout_gravity="bottom"
+                        android:text="+"
+                        android:textSize="24sp"/>
+
+                    <Button
+                        android:id="@+id/sendButton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/button"
+                        android:layout_gravity="bottom"
+                        android:text=">"
+                        android:textSize="24sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </ViewFlipper>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
