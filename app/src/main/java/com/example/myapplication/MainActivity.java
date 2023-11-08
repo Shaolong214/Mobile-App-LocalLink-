@@ -53,12 +53,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseFirestore db;
     private DocumentReference imageRef;
 
+
+    private Button LogoutButton;
+    private Button ProfileButton;
+
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient fusedLocationProviderClient;
     private final int FINE_PERMISSION_CODE = 1;
     private GoogleMap myMap;
     Location currentLocation;
     private Button LogoutButton, AddFriendButton;
+
 
 
     @Override
@@ -71,7 +76,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         LogoutButton = (Button) findViewById(R.id.logoutButton);
+
+        ProfileButton = (Button) findViewById(R.id.profileButton);
+
         AddFriendButton = (Button) findViewById(R.id.addFriendButton);
+
 
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,10 +90,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+
+        ProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendUserToProfileActivity();
+            }
+        });
+      
         AddFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SendUserToAddFriend();
+
             }
         });
 
@@ -172,7 +190,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
     private void AuthenticateUserExists() {
         final String userId = auth.getCurrentUser().getUid();
         imageRef = db.collection("images").document(userId);
@@ -201,6 +218,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
         finish();
+    }
+
+    private void SendUserToProfileActivity() {
+        Intent ProfileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(ProfileIntent);
     }
 
     private void SendUserToAddFriend() {
