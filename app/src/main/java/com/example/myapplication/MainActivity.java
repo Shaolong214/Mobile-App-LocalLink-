@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DocumentReference imageRef;
 
 
-    private Button LogoutButton;
+
     private Button ProfileButton;
 
     SupportMapFragment supportMapFragment;
