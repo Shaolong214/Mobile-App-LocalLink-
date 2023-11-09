@@ -179,18 +179,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(currentUser == null){
             SendUserToLogin();
-//        } else {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//            builder.setTitle("Add A Friend");
-//            builder.setMessage("Shake your phone to display a QR Code to add friends!");
-//            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    dialogInterface.dismiss();
-//                }
-//            }).show();
-//            AuthenticateUserExists();
         }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Welcome to Local Link!");
+        builder.setMessage("Tap the map to add a post to your current location! Add friends and see their posts");
+        builder.setPositiveButton("Cool!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).show();
 
         MyApplication.initUserFireBase();
     }
@@ -619,26 +618,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void showFriendsPostOnMap(List<String> friendList) {
         for (String friendUserId : friendList) {
-            // Get a reference to the friend's user document in the "users" collection
-            DocumentReference friendUserRef = db.collection("users").document(friendUserId);
+            try {
+                // Get a reference to the friend's user document in the "users" collection
+                DocumentReference friendUserRef = db.collection("users").document(friendUserId);
 
-            friendUserRef.get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            // Retrieve the "postIds" array from the user's document
+                friendUserRef.get()
+                        .addOnSuccessListener(documentSnapshot -> {
+                            if (documentSnapshot.exists()) {
+                                // Retrieve the "postIds" array from the user's document
 
-                            List<String> postIds = (List<String>) documentSnapshot.get("postIds");
+                                List<String> postIds = (List<String>) documentSnapshot.get("postIds");
 
-                            // Retrieve and show posts on the map
-                            if (postIds != null && postIds.size() > 0) {
-                                retrieveAndShowPosts(postIds);
+                                // Retrieve and show posts on the map
+                                if (postIds != null && postIds.size() > 0) {
+                                    retrieveAndShowPosts(postIds);
+                                }
                             }
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        // Handle errors if the query fails
-                        Toast.makeText(MainActivity.this, "Failed to retrieve user's post IDs: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+                        })
+                        .addOnFailureListener(e -> {
+                            // Handle errors if the query fails
+                            Toast.makeText(MainActivity.this, "Failed to retrieve user's post IDs: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            } catch (Exception e) {
+                Toast.makeText(MainActivity.this, "An error occurred: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
