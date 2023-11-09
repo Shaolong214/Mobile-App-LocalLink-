@@ -1,0 +1,39 @@
+#######################################################################                      COMP90018 Itemised Contributions
+#######################################################################
+
+1: Shaolong Xu(1067946)
+- Profile pages
+	- View Profile
+	- Edit Profile
+
+2: Jingyuan Liu(1402044)
+- Friends pages
+	- Search for friends
+	- View Friends
+	- Add Friend
+	- Friend Requests
+	- Link to friend request from QR code
+
+3: Liqin Zhang(1224117)
+- Home page
+	- View user's current location on map
+	- View friends' locations on map
+- Set up repository & link to Firebase DB
+
+4: Barry Zhong (1170691)
+- Settings
+
+5: Hongtao Yao(1302148)
+- Chat
+
+6: Rebecca Tie (995128)
+- Login pages
+	- Login
+	- Register
+	- Setup Profile
+- QR pages
+	- Shake sensor setup
+	- Generate QR
+	- QR page
+- High & Low fidelity Prototype
+
