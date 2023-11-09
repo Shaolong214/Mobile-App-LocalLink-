@@ -201,7 +201,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // show friends on map
         getFriendList();
         // show my location on map
-        myMap.addMarker(new MarkerOptions().position(sydney).title("My location"));
+        Marker marker = myMap.addMarker(new MarkerOptions().position(sydney).title("My location"));
+        Date currentDate = new Date();
+        marker.setTag(new PostMarker("Nothing", "nothing", currentDate,"nothing" , "user"));
+
         myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         currentLocation = null;
         // show posts on map
@@ -343,16 +346,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 Marker marker = myMap.addMarker(markerOptions);
 
                                 // Set an InfoWindow to display post content when the marker is clicked
-                                marker.setTag(new PostMarker(postId, content, time, userId));
+                                marker.setTag(new PostMarker(postId, content, time, userId, "post"));
                                 myMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                     @Override
                                     public boolean onMarkerClick(Marker clickedMarker) {
-
                                         PostMarker postInfo = (PostMarker) clickedMarker.getTag();
-                                        if (postInfo.getUserId().equals(currentUser.getUid())){
-                                            showPostActionsDialog(postInfo);
-                                        } else if (!postInfo.getUserId().equals(currentUser.getUid())) {
-                                            viewPostContent(postInfo);
+                                        if (postInfo.getType() == "post") {
+                                            if (postInfo.getUserId().equals(currentUser.getUid())){
+                                                showPostActionsDialog(postInfo);
+                                            } else if (!postInfo.getUserId().equals(currentUser.getUid())) {
+                                                viewPostContent(postInfo);
+                                            }
                                         }
                                         return false;
                                     }
@@ -648,10 +652,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 LatLng friendLocation = new LatLng(friendLatitude, friendLongitude);
                                 // Add a marker for the friend's location on the map
                                 float hue = Math.abs((friendUserId.hashCode() % 360) + 360) % 360;
-                                myMap.addMarker(new MarkerOptions().position(friendLocation)
+                                Marker marker = myMap.addMarker(new MarkerOptions().position(friendLocation)
                                         .title(friendName)
                                         .icon(BitmapDescriptorFactory
                                                 .defaultMarker(hue)));
+                                Date currentDate = new Date();
+                                marker.setTag(new PostMarker("Nothing", "nothing", currentDate,"nothing" , "user"));
+
                             }
                         }
                     })
