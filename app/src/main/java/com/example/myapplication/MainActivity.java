@@ -58,6 +58,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
 
@@ -141,6 +142,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // map
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         getLastLocation();
@@ -333,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             boolean visibleToFriends = documentSnapshot.getBoolean("visibleToFriends");
 
                             // Check if the post is visible to friends
-                            if (visibleToFriends) {
+                            if (visibleToFriends || Objects.equals(userId, currentUser.getUid())) {
                                 LatLng postLocation = new LatLng(latitude, longitude);
                                 float hue = Math.abs((userId.hashCode() % 360) + 360) % 360;
 
@@ -570,7 +574,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // You can use this list as needed.
                             String[] itemsArray = friends.substring(1, friends.length() - 1).split(", ");
                             friendList = Arrays.asList(itemsArray);
-                            showFriendsOnMap(friendList);
+                            if (friendList.size() > 0) {
+                                showFriendsOnMap(friendList);
+                            }
                         }
                     })
                     .addOnFailureListener(e -> {
@@ -597,9 +603,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // You can use this list as needed.
                             String[] itemsArray = friends.substring(1, friends.length() - 1).split(", ");
                             friendList = Arrays.asList(itemsArray);
-                            showFriendsPostOnMap(friendList);
 
-
+                            if (friendList.size()>=1){
+                                showFriendsPostOnMap(friendList);
+                            }
 
                         }
                     })
@@ -637,35 +644,39 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void showFriendsOnMap(List<String> friendList) {
         for (String friendUserId : friendList) {
-            // Get a reference to the friend's user document in the "users" collection
-            DocumentReference friendUserRef = db.collection("users").document(friendUserId);
+            try {
+                // Get a reference to the friend's user document in the "users" collection
+                DocumentReference friendUserRef = db.collection("users").document(friendUserId);
 
-            friendUserRef.get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            // Retrieve the latitude and longitude from the friend's document
-                            Double friendLatitude = documentSnapshot.getDouble("latitude");
-                            Double friendLongitude = documentSnapshot.getDouble("longitude");
-                            String friendName = documentSnapshot.getString("name");
+                friendUserRef.get()
+                        .addOnSuccessListener(documentSnapshot -> {
+                            if (documentSnapshot.exists()) {
+                                // Retrieve the latitude and longitude from the friend's document
+                                Double friendLatitude = documentSnapshot.getDouble("latitude");
+                                Double friendLongitude = documentSnapshot.getDouble("longitude");
+                                String friendName = documentSnapshot.getString("name");
 
-                            if (friendLatitude != null && friendLongitude != null) {
-                                LatLng friendLocation = new LatLng(friendLatitude, friendLongitude);
-                                // Add a marker for the friend's location on the map
-                                float hue = Math.abs((friendUserId.hashCode() % 360) + 360) % 360;
-                                Marker marker = myMap.addMarker(new MarkerOptions().position(friendLocation)
-                                        .title(friendName)
-                                        .icon(BitmapDescriptorFactory
-                                                .defaultMarker(hue)));
-                                Date currentDate = new Date();
-                                marker.setTag(new PostMarker("Nothing", "nothing", currentDate,"nothing" , "user"));
+                                if (friendLatitude != null && friendLongitude != null) {
+                                    LatLng friendLocation = new LatLng(friendLatitude, friendLongitude);
+                                    // Add a marker for the friend's location on the map
+                                    float hue = Math.abs((friendUserId.hashCode() % 360) + 360) % 360;
+                                    Marker marker = myMap.addMarker(new MarkerOptions().position(friendLocation)
+                                            .title(friendName)
+                                            .icon(BitmapDescriptorFactory
+                                                    .defaultMarker(hue)));
+                                    Date currentDate = new Date();
+                                    marker.setTag(new PostMarker("Nothing", "nothing", currentDate, "nothing", "user"));
 
+                                }
                             }
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        // Handle errors if the query fails
-                        Toast.makeText(MainActivity.this, "Failed to retrieve friend's location: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+                        })
+                        .addOnFailureListener(e -> {
+                            // Handle errors if the query fails
+                            Toast.makeText(MainActivity.this, "Failed to retrieve friend's location: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            } catch (Exception e) {
+                Toast.makeText(MainActivity.this, "An error occurred: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
     public void updateUserLocation(double lat, double lon){
