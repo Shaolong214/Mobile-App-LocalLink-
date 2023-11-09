@@ -22,6 +22,7 @@
 
 4: Barry Zhong (1170691)
 - Settings
+- Navigation
 
 5: Hongtao Yao(1302148)
 - Chat
