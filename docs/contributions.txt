@@ -5,6 +5,7 @@
 - Profile pages
 	- View Profile
 	- Edit Profile
+- Assist with dark mode settings
 
 2: Jingyuan Liu(1402044)
 - Friends pages
@@ -24,8 +25,8 @@
 - Set up repository & link to Firebase DB
 
 4: Barry Zhong (1170691)
-- Settings
-- Navigation
+- App Settings
+	- Dark mode
 
 5: Hongtao Yao(1302148)
 - Chat
@@ -40,4 +41,5 @@
 	- Generate QR
 	- QR page
 - High & Low fidelity Prototype
+- Navigation on Homepage
 
