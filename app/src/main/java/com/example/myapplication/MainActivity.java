@@ -247,10 +247,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 showPostDialog(latLng);
             }
         });
-
-
-
-
     }
 
     private void showPostDialog(LatLng latLng) {
