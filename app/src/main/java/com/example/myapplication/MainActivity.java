@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.Manifest;
 
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,6 +53,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -77,16 +80,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final int FINE_PERMISSION_CODE = 1;
     private GoogleMap myMap;
     Location currentLocation;
-    private Button LogoutButton, AddFriendButton;
+    private Button LogoutButton, AddFriendButton, changeSettings;
     private DocumentReference userRef;
-
     private List<String> friendList;
 
     String userId;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -106,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ProfileButton = (Button) findViewById(R.id.profileButton);
 
         AddFriendButton = (Button) findViewById(R.id.addFriendButton);
+
+        changeSettings = (Button) findViewById(R.id.settingsButton);
 
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +131,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 SendUserToAddFriend();
+            }
+        });
+
+        changeSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendUserToSettings();
             }
         });
 
@@ -195,11 +206,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences1", Context.MODE_PRIVATE);
+        myMap = googleMap;
+
+        if (sharedPreferences != null) {
+            boolean isDarkMode = sharedPreferences.getBoolean("darkModeSwitch", false);
+            if (isDarkMode) {
+                myMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.dark_mode));
+            }
+        }
+        //LatLng sydney = new LatLng(-34, 151);
         myMap = googleMap;
         LatLng sydney = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         // update location in user collection
         if (currentUser != null) {
-            updateUserLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+            if (sharedPreferences != null) {
+                boolean enabledLocation = sharedPreferences.getBoolean("locationSwitch", false);
+                if (enabledLocation == true) {
+                    updateUserLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+                }
+            }
         }
         // show friends on map
         getFriendList();
@@ -221,8 +247,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 showPostDialog(latLng);
             }
         });
-
-
     }
 
     private void showPostDialog(LatLng latLng) {
@@ -739,6 +763,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void SendUserToProfileActivity() {
         Intent ProfileIntent = new Intent(MainActivity.this, ProfileActivity.class);
         startActivity(ProfileIntent);
+    }
+
+    private void SendUserToSettings() {
+        Intent SettingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(SettingsIntent);
     }
 
     private void SendUserToAddFriend() {
