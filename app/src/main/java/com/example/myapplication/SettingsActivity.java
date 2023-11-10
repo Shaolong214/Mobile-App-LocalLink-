@@ -34,8 +34,8 @@ public class SettingsActivity extends AppCompatActivity {
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkMode", false));
-        locationSwitch.setChecked(sharedPreferences.getBoolean("location", false));
+        darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkModeSwitch", false));
+        locationSwitch.setChecked(sharedPreferences.getBoolean("locationSwitch", false));
 
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
