@@ -88,8 +88,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     String userId;
 
-    boolean enabledLocation = sharedPreferences.getBoolean("locationSwitch", false);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,7 +212,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng sydney = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         // update location in user collection
         if (currentUser != null) {
-            updateUserLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+            boolean enabledLocation = sharedPreferences.getBoolean("locationSwitch", false);
+            if (enabledLocation == true){
+                updateUserLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+            }
         }
         // show friends on map
         getFriendList();
