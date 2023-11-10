@@ -198,9 +198,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences1", Context.MODE_PRIVATE);
         myMap = googleMap;
 
+        // Check if night mode is set from settings
         if (sharedPreferences != null) {
             boolean isDarkMode = sharedPreferences.getBoolean("darkModeSwitch", false);
             if (isDarkMode) {
+                // raw file taken from: https://stackoverflow.com/questions/39191867/night-mode-for-google-maps
                 myMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.dark_mode));
             }
         }
