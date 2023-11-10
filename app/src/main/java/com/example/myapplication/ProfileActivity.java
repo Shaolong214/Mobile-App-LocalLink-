@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
-    private TextView userName, userStatus, userConstantName;
+    private TextView userName, userStatus, userConstantName, userCountry, userGender, userDOB;
     private CircleImageView userProfileImage;
 
     private FirebaseFirestore db;
@@ -45,6 +45,9 @@ public class ProfileActivity extends AppCompatActivity {
         userName = findViewById(R.id.my_user_name);
         userConstantName = findViewById(R.id.my_name);
         userStatus = findViewById(R.id.my_profile_status);
+        userCountry = findViewById(R.id.my_profile_country);
+        userGender = findViewById(R.id.my_profile_gender);
+        userDOB = findViewById(R.id.my_profile_dob);
         userProfileImage = findViewById(R.id.my_profile_pic);
 
         retrieveAndDisplayUserDetails();
@@ -88,10 +91,16 @@ public class ProfileActivity extends AppCompatActivity {
                             String myUserName = documentSnapshot.getString("username");
                             String myName = documentSnapshot.getString("name");
                             String myProfileStatus = documentSnapshot.getString("status");
+                            String myCountry = documentSnapshot.getString("country");
+                            String myGender = documentSnapshot.getString("gender");
+                            String myDOB = documentSnapshot.getString("DOB");
 
                             userName.setText(myUserName);
                             userConstantName.setText("@" + myName);
                             userStatus.setText(myProfileStatus);
+                            userCountry.setText(myCountry);
+                            userDOB.setText(myDOB);
+                            userGender.setText(myGender);
                         }
                     }
                 });

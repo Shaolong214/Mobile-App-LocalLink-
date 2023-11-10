@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,7 +40,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import android.app.Activity;
 
 public class EditProfileActivity extends AppCompatActivity {
-    private EditText userName, userStatus;
+    private EditText userName, userStatus, userCountry, userDOB, userGender;
     private CircleImageView userProfImage;
     private Button saveProfileButton, backProfileButton;
     private FirebaseFirestore db;
@@ -57,6 +60,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         userName = (EditText) findViewById(R.id.edit_user_name);
         userStatus = (EditText) findViewById(R.id.edit_profile_status);
+        userCountry = (EditText) findViewById(R.id.edit_profile_country);
+        userDOB = (EditText) findViewById(R.id.edit_profile_dob);
+        userGender = (EditText) findViewById(R.id.edit_profile_gender);
+
         saveProfileButton = (Button) findViewById(R.id.save_profile);
         backProfileButton = (Button) findViewById(R.id.edit_back_profile);
         userProfImage = (CircleImageView) findViewById(R.id.edit_profile_pic);
@@ -136,21 +143,40 @@ public class EditProfileActivity extends AppCompatActivity {
     private void ValidateAccountInfo() {
         String username = userName.getText().toString();
         String userstatus = userStatus.getText().toString();
+        String usercountry = userCountry.getText().toString();
+        String userdob = userDOB.getText().toString();
+        String usergender = userGender.getText().toString();
+
+
 
         if (TextUtils.isEmpty(username)){
             Toast.makeText(this,"Please write your username...",Toast.LENGTH_SHORT).show();
         } else if(TextUtils.isEmpty(userstatus)){
             Toast.makeText(this,"Please write your status...",Toast.LENGTH_SHORT).show();
+
+        } else if(TextUtils.isEmpty(usercountry)){
+            Toast.makeText(this,"Please write your country...",Toast.LENGTH_SHORT).show();
+
+        } else if(TextUtils.isEmpty(userdob)){
+            Toast.makeText(this,"Please write your DOB...",Toast.LENGTH_SHORT).show();
+
+        } else if(TextUtils.isEmpty(usergender)){
+            Toast.makeText(this,"Please write your gender...",Toast.LENGTH_SHORT).show();
+
         } else {
-            UpdateAccountInfo(username, userstatus);
+            UpdateAccountInfo(username, userstatus, userdob, usercountry, usergender);
         }
     }
 
-    private void UpdateAccountInfo(String username, String userstatus) {
+    private void UpdateAccountInfo(String username, String userstatus, String userdob, String usercountry, String usergender) {
         // Creating a new HashMap for user's updated information
         HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("username", username);
         userMap.put("status", userstatus);
+        userMap.put("country", usercountry);
+        userMap.put("DOB", userdob);
+        userMap.put("gender", usergender);
+
 
         // Update the user's information in the Firestore database
         db.collection("users").document(currentUserId)
@@ -171,7 +197,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void retrieveAndDisplayUserDetails() {
-        // Fetch user details
+
         db.collection("users").document(currentUserId)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
@@ -186,12 +212,21 @@ public class EditProfileActivity extends AppCompatActivity {
                             // Fetch username, name, and status
                             String myUserName = documentSnapshot.getString("username");
                             String myProfileStatus = documentSnapshot.getString("status");
+                            String myProfileCountry = documentSnapshot.getString("country");
+                            String myProfileDOB = documentSnapshot.getString("DOB");
+                            String myProfileGender = documentSnapshot.getString("gender");
 
                             userName.setText(myUserName);
                             userStatus.setText(myProfileStatus);
+                            userCountry.setText(myProfileCountry);
+                            userDOB.setText(myProfileDOB);
+                            userGender.setText(myProfileGender);
                         }
                     }
                 });
+
+
+
 
         // Fetch profile image
 //        db.collection("images").document(currentUserId)
