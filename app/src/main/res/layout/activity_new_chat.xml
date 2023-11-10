@@ -25,10 +25,11 @@
                 android:layout_marginRight="10dp"
                 android:layout_height="match_parent">
                 <TextView
-                    android:id="@+id/tvReceiverTitle"
+                    android:id="@+id/tvNewChatTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/back"
+                    android:text = "New Chat"
                     android:textSize="24sp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
@@ -38,52 +39,11 @@
                     android:id="@+id/lvMessageList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/tvReceiverTitle"
-                    android:layout_above="@id/llSendMessage"
+                    android:layout_below="@id/tvNewChatTitle"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"/>
-
-                <LinearLayout
-                    android:id="@+id/llSendMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal" >
-
-                    <EditText
-                        android:id="@+id/etMessageInput"
-                        android:layout_width="260dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/textinput"
-                        android:gravity="bottom|left"
-                        android:hint="Enter Message..."
-                        android:inputType="textEmailAddress"
-                        android:padding="20dp"/>
-
-                    <Button
-                        android:id="@+id/btnSendAttachment"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/button"
-                        android:layout_gravity="bottom"
-                        android:text="+"
-                        android:textSize="24sp"/>
-
-                    <Button
-                        android:id="@+id/btnSend"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/button"
-                        android:layout_gravity="bottom"
-                        android:text=">"
-                        android:textSize="24sp"/>
-                </LinearLayout>
             </RelativeLayout>
         </ViewFlipper>
     </androidx.constraintlayout.widget.ConstraintLayout>

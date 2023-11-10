@@ -24,11 +24,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder> {
 
     private List<UserBean> friendRequestList;
+    private FriendClickListener clickListener;
 
     // 构造函数
-    public FriendListAdapter(List<UserBean> friendRequestList) {
+    public FriendListAdapter(List<UserBean> friendRequestList, FriendClickListener clickListener) {
         this.friendRequestList = friendRequestList;
+        this.clickListener = clickListener;
+    }
 
+    public interface FriendClickListener {
+        void onFriendClick(UserBean friend);
     }
 
     @Override
@@ -41,6 +46,15 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         UserBean request = friendRequestList.get(position);
         holder.bind(request);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(clickListener != null) {
+                    clickListener.onFriendClick(request);
+                }
+            }
+        });
     }
 
 
