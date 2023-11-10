@@ -25,7 +25,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_height="match_parent">
                 <TextView
-                    android:id="@+id/tvReceiverTitle"
+                    android:id="@+id/tvTheirTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/back"
@@ -38,7 +38,7 @@
                     android:id="@+id/lvMessageList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/tvReceiverTitle"
+                    android:layout_below="@id/tvTheirTitle"
                     android:layout_above="@id/llSendMessage"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="10dp"

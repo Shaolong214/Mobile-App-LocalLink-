@@ -118,7 +118,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void fetchMessages() {
-        Message testM5 = new Message("test", "test", "their msg5", "test");
-        messageList.add(testM5);
+
     }
 }
