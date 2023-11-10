@@ -78,7 +78,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/textinput"
                 android:ems="10"
-                android:hint="Edit DOB..."
+                android:hint="Edit DOB (DD/MM/YYYY)"
                 android:padding="11dp"
                 android:textColor="@color/purple_200"
                 android:textSize="20dp" />
@@ -93,7 +93,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/textinput"
                 android:ems="10"
-                android:hint="Edit Gender (DD/MM/YYYY)..."
+                android:hint="Edit Gender..."
                 android:padding="11dp"
                 android:textColor="@color/purple_200"
                 android:textSize="20dp" />
