@@ -72,18 +72,18 @@ public class MyFriendsActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         curUserId = auth.getCurrentUser().getUid();
         Log.e("curUserId: " ,curUserId);
-        initFirendList();
+        initFriendList();
         initQRCode();
     }
 
-    private void initFirendList() {
+    private void initFriendList() {
         lvFriendsList.setLayoutManager(new LinearLayoutManager(this));
         adapter = new FriendListAdapter(friendUser, new FriendListAdapter.FriendClickListener() {
             @Override
             public void onFriendClick(UserBean friend) {
                 Intent intent = new Intent(MyFriendsActivity.this, ChatActivity.class);
-                intent.putExtra("receiver_user_id", friend.getUserId());
-                intent.putExtra("receiver_user_name", friend.getUsername());
+                intent.putExtra("their_user_id", friend.getUserId());
+                intent.putExtra("their_user_name", friend.getUsername());
                 startActivity(intent);
             }
         });
