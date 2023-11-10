@@ -31,11 +31,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         Switch darkModeSwitch = (Switch) findViewById(R.id.NightSwitch);
         Switch locationSwitch = (Switch) findViewById(R.id.LocationSwitch);
-        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+//        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("MyPreferences1", Context.MODE_PRIVATE);
+
         editor = sharedPreferences.edit();
 
-        darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkMode", false));
-        locationSwitch.setChecked(sharedPreferences.getBoolean("location", false));
+        darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkModeSwitch", false));
+        locationSwitch.setChecked(sharedPreferences.getBoolean("locationSwitch", false));
 
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

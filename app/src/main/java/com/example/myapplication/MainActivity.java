@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -205,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences1", Context.MODE_PRIVATE);
         myMap = googleMap;
 
         if (sharedPreferences != null) {
@@ -246,6 +247,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 showPostDialog(latLng);
             }
         });
+
+
 
 
     }
