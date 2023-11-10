@@ -208,22 +208,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
-        boolean isDarkMode = sharedPreferences.getBoolean("darkModeSwitch", false);
-
         myMap = googleMap;
 
-        if (isDarkMode){
-            myMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.dark_mode));
+        if (sharedPreferences != null) {
+            boolean isDarkMode = sharedPreferences.getBoolean("darkModeSwitch", false);
+            if (isDarkMode) {
+                myMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.dark_mode));
+            }
         }
-
         //LatLng sydney = new LatLng(-34, 151);
         myMap = googleMap;
         LatLng sydney = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         // update location in user collection
         if (currentUser != null) {
-            boolean enabledLocation = sharedPreferences.getBoolean("locationSwitch", false);
-            if (enabledLocation == true){
-                updateUserLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+            if (sharedPreferences != null) {
+                boolean enabledLocation = sharedPreferences.getBoolean("locationSwitch", false);
+                if (enabledLocation == true) {
+                    updateUserLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+                }
             }
         }
         // show friends on map
