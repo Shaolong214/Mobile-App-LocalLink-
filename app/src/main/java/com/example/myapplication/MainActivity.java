@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.Manifest;
 
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private ActivityMainBinding binding;
@@ -64,7 +68,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Location currentLocation;
     private Button LogoutButton, AddFriendButton;
 
+    SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences1", Context.MODE_PRIVATE);
 
+    boolean enabledLocation = sharedPreferences.getBoolean("locationSwitch", false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,8 +162,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
+        boolean isDarkMode = sharedPreferences.getBoolean("darkModeSwitch", false);
 
         myMap = googleMap;
+
+        if (isDarkMode){
+            myMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.dark_mode));
+        }
 
         //LatLng sydney = new LatLng(-34, 151);
         LatLng sydney = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
