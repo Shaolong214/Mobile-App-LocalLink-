@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final int FINE_PERMISSION_CODE = 1;
     private GoogleMap myMap;
     Location currentLocation;
-    private Button LogoutButton, AddFriendButton;
+    private Button LogoutButton, AddFriendButton, changeSettings;
     private DocumentReference userRef;
 
     SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences1", Context.MODE_PRIVATE);
@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         AddFriendButton = (Button) findViewById(R.id.addFriendButton);
 
+        changeSettings = (Button) findViewById(R.id.settingsButton);
+
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +132,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 SendUserToAddFriend();
+            }
+        });
+
+        changeSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendUserToSettings();
             }
         });
 
@@ -755,6 +764,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void SendUserToProfileActivity() {
         Intent ProfileIntent = new Intent(MainActivity.this, ProfileActivity.class);
         startActivity(ProfileIntent);
+    }
+
+    private void SendUserToSettings() {
+        Intent SettingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(SettingsIntent);
     }
 
     private void SendUserToAddFriend() {

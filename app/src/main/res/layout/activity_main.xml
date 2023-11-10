@@ -40,10 +40,20 @@
         app:navGraph="@navigation/mobile_navigation" />
 
     <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="100dp"
+        android:id="@+id/settingsButton"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="296dp"
+        android:layout_marginStart="294dp"
+        android:layout_marginTop="480dp"
+        android:text="Settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="294dp"
         android:layout_marginTop="540dp"
         android:text="Log Out"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,9 +61,9 @@
 
     <Button
         android:id="@+id/profileButton"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="296dp"
+        android:layout_marginStart="294dp"
         android:layout_marginTop="8dp"
         android:text="Profile"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,10 +71,10 @@
 
    <Button
         android:id="@+id/addFriendButton"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="296dp"
-        android:layout_marginTop="480dp"
+        android:layout_marginStart="294dp"
+        android:layout_marginTop="420dp"
         android:text="Friends"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
