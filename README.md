@@ -12,7 +12,7 @@ Welcome to Local Link! A social media app which can help you connect with friend
 | Rebecca Tie | 995128 |
 
 ## YouTube Link: 
-[TO DO]
+https://www.youtube.com/watch?v=CzHuvmDR5O8
 
 ## Publicity statement: 
 We authorise the University of Melbourne to use material from our submission for publicity.
