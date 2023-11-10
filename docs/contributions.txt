@@ -18,6 +18,9 @@
 - Home page
 	- View user's current location on map
 	- View friends' locations on map
+	- User is able to create posts and view friends' posts on the map, 
+		- change the visability of the post
+		- delete their own posts
 - Set up repository & link to Firebase DB
 
 4: Barry Zhong (1170691)
