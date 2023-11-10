@@ -78,7 +78,15 @@ public class MyFriendsActivity extends AppCompatActivity {
 
     private void initFirendList() {
         lvFriendsList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new FriendListAdapter(friendUser);
+        adapter = new FriendListAdapter(friendUser, new FriendListAdapter.FriendClickListener() {
+            @Override
+            public void onFriendClick(UserBean friend) {
+                Intent intent = new Intent(MyFriendsActivity.this, ChatActivity.class);
+                intent.putExtra("receiver_user_id", friend.getUserId());
+                intent.putExtra("receiver_user_name", friend.getUsername());
+                startActivity(intent);
+            }
+        });
         lvFriendsList.setAdapter(adapter);
     }
 

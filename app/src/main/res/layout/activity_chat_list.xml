@@ -40,10 +40,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/tvChatTitle"
+                    android:layout_above="@id/btnNewChat"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"/>
+
+                <Button
+                    android:id="@+id/btnNewChat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="new chat"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/button"
+                    android:textColor="@android:color/white"/>
             </RelativeLayout>
         </ViewFlipper>
     </androidx.constraintlayout.widget.ConstraintLayout>

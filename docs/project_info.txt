@@ -1,0 +1,30 @@
+################################################################################                     
+                    COMP90018 Programming Project Submission
+################################################################################
+
+Group No: #3
+
+Group Members:
+
+1: Shaolong Xu(1067946) - shaolongx@student.unimelb.edu.au
+2: Jingyuan Liu(1402044) - Ljy980721@gmail.com
+3: Liqin Zhang(1224117) - liqizhang@student.unimelb.edu.au
+4: Barry Zhong (1170691) - barryz@student.unimelb.edu.au
+5: Hongtao Yao(1302148) - hongtaoy@student.unimelb.edu.au
+6: Rebecca Tie (995128) - rtie@student.unimelb.edu.au
+
+YouTube Link: [TO DO]
+
+Publicity statement: We authorise the University of Melbourne to use material from our submission for publicity.
+
+README:
+
+Welcome to Local Link! A social media app which can help you connect with friends near you. 
+
+To run our app, please complete the following steps:
+
+(1) Download the source code from the LocalLink repository (https://github.com/liqinzhang98/LocalLinkMobile) or zip file provided on submission
+(2) Download Android Studio
+(3) Open the project in Android Studio
+(4) Configure and start your chosen mobile device - we recommend a Virtual Pixel 5 device with Android 9.0 x86
+(5) Run the app! Once it is compiled and built you should be greeted by the Local Link login page.
