@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Location currentLocation;
     private Button LogoutButton, AddFriendButton, changeSettings;
     private DocumentReference userRef;
-
-    SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences1", Context.MODE_PRIVATE);
     private List<String> friendList;
 
     String userId;
@@ -207,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         myMap = googleMap;
 
         if (sharedPreferences != null) {
