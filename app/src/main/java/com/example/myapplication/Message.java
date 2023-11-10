@@ -5,13 +5,13 @@ import com.google.firebase.Timestamp;
 import java.sql.Time;
 
 public class Message {
-    public String senderID, receiverID, messageTxt, timeStamp;
+    public String senderID, receiverID, messageTxt, timestamp;
     public Message(){}
 
-    public Message(String s, String r, String m, String t){
+    public Message(String s, String r, String m, String ts){
         senderID = s;
         receiverID = r;
         messageTxt = m;
-        timeStamp = t;
+        timestamp = ts;
     }
 }

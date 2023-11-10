@@ -3,6 +3,7 @@ package com.example.myapplication;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,8 +23,10 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -41,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
     private Button SendButton;
     private EditText MessageInput;
     private RecyclerView MessageListView;
-    private final List<Message> messageList = new ArrayList<>();
+    private List<Message> messageList = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private MessageAdapter messageAdapter;
     private TextView TheirNameDisplay;
@@ -62,7 +65,7 @@ public class ChatActivity extends AppCompatActivity {
         theirID = getIntent().getExtras().get("their_user_id").toString();
         theirName = getIntent().getExtras().get("their_user_name").toString();
         initializeComponents();
-        initMessageList();
+        //initMessageList();
         fetchMessages();
 //        Message testM1 = new Message(myID, "test", "myid 1", "test");
 //        Message testM2 = new Message("test", "test", "their msg1", "test");
@@ -109,6 +112,7 @@ public class ChatActivity extends AppCompatActivity {
             db.collection("messages").add(message);
             MessageInput.setText("");
         }
+        fetchMessages();
     }
 
     private void initMessageList() {
@@ -116,8 +120,36 @@ public class ChatActivity extends AppCompatActivity {
         messageAdapter = new MessageAdapter(messageList);
         MessageListView.setAdapter(messageAdapter);
     }
-
+    //problem: need to fetch messages from server, convert them into Message objects, and then put them in messageList in the order of timestamp
     private void fetchMessages() {
+        messageList = new ArrayList<Message>();
+//        Message testM5 = new Message("test", "test", "their msg front", "fewfawe");
+//        messageList.add(testM5);
+        db.collection("messages")
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            if((document.getString("sender").equals(myID)) || document.getString("receiver").equals(myID)) {
+                                String senderID = document.getString("sender");
+                                String receiverID = document.getString("receiver");
+                                String messageTxt = document.getString("message_txt");
+                                String timestamp = document.getString("timestamp");
+                                Message testM6 = new Message(senderID, receiverID, messageTxt, timestamp);
+                                messageList.add(testM6);
+                                Log.d(TAG, document.getId() + " bark! => " + document.getData());
+                                initMessageList();
+                            }
+                        }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                }
+            });
+
+        Log.d(TAG, ""+messageList.size());
 
     }
 }
